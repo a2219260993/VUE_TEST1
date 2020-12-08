@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <link rel="stylesheet" href="sty.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="bigBox">
+            <ul class="top">
+                <li></li>
+                <li @click="sort()">Data <span v-if="ishort">↑</span><span v-if="!ishort">↓</span></li>
+                <li>#</li>
+                <li>Description</li>
+                <li>Total</li>
+            </ul>
+            <ul class="list" v-for="itme in list">
+                <li></li>
+                <li>{{itme.date}}</li>
+                <li>{{itme.no}}</li>
+                <li>{{itme.data}}</li>
+                <li>{{itme.total}}</li>
+            </ul>
+            <div class="button"></div>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                ishort: true,
+                list: [{
+                    date: '10/31/2017',
+                    no: '000011',
+                    data: 'Alpha Bravo Charlie',
+                    total: '26.00'
+                }, {
+                    date: '10/31/2017',
+                    no: '000011',
+                    data: 'Alpha Bravo Charlie',
+                    total: '26.00'
+                }, {
+                    date: '10/31/2017',
+                    no: '000011',
+                    data: 'Alpha Bravo Charlie',
+                    total: '26.00'
+                }, {
+                    date: '10/31/2017',
+                    no: '000011',
+                    data: 'Alpha Bravo Charlie',
+                    total: '26.00'
+                }, {
+                    date: '10/31/2017',
+                    no: '000011',
+                    data: 'Alpha Bravo Charlie',
+                    total: '26.00'
+                }, {
+                    date: '10/31/2017',
+                    no: '000011',
+                    data: 'Alpha Bravo Charlie',
+                    total: '26.00'
+                }]
+
+            },
+            methods: {
+                sort: function () {
+                    this.ishort = !this.ishort;
+                }
+            }
+        })
+    </script>
+
+
+
+</body>
+
+
+</html>
