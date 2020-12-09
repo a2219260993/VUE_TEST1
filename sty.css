@@ -3,6 +3,7 @@
   padding: 0;
   list-style-type: none;
   text-decoration: none;
+  outline: none;
 }
 
 .bigBox {
@@ -13,7 +14,9 @@
   border: 1px solid #eee;
   box-shadow: 0 0 5px rgba(53, 65, 53, 0.20);
 }
-
+.list{
+  height: 544px;
+}
 .list ul {
   display: flex;
 
@@ -91,6 +94,7 @@
 
 .search .search-input {
   flex: 1;
+  font-size: 24px;
 }
 
 .round {
