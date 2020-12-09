@@ -2,78 +2,115 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="vue.js"></script>
-    <link rel="stylesheet" href="sty.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="vue.js"></script>
+  <link rel="stylesheet" href="sty.css">
 </head>
 
 <body>
-    <div id="app">
-        <div class="bigBox">
-            <ul class="top">
-                <li></li>
-                <li @click="sort()">Data <span v-if="ishort">↑</span><span v-if="!ishort">↓</span></li>
-                <li>#</li>
-                <li>Description</li>
-                <li>Total</li>
-            </ul>
-            <ul class="list" v-for="itme in list">
-                <li></li>
-                <li>{{itme.date}}</li>
-                <li>{{itme.no}}</li>
-                <li>{{itme.data}}</li>
-                <li>{{itme.total}}</li>
-            </ul>
-            <div class="button"></div>
-        </div>
-    </div>
-    <script>
-        var app = new Vue({
-            el: '#app',
-            data: {
-                ishort: true,
-                list: [{
-                    date: '10/31/2017',
-                    no: '000011',
-                    data: 'Alpha Bravo Charlie',
-                    total: '26.00'
-                }, {
-                    date: '10/31/2017',
-                    no: '000011',
-                    data: 'Alpha Bravo Charlie',
-                    total: '26.00'
-                }, {
-                    date: '10/31/2017',
-                    no: '000011',
-                    data: 'Alpha Bravo Charlie',
-                    total: '26.00'
-                }, {
-                    date: '10/31/2017',
-                    no: '000011',
-                    data: 'Alpha Bravo Charlie',
-                    total: '26.00'
-                }, {
-                    date: '10/31/2017',
-                    no: '000011',
-                    data: 'Alpha Bravo Charlie',
-                    total: '26.00'
-                }, {
-                    date: '10/31/2017',
-                    no: '000011',
-                    data: 'Alpha Bravo Charlie',
-                    total: '26.00'
-                }]
+  <div id="app">
+    <div class="bigBox">
+      <div class="list">
+        <ul class="top">
+          <li></li>
+          <li @click="sort()">Data <span v-if="ishort">↑</span><span v-if="!ishort">↓</span></li>
+          <li>#</li>
+          <li>Description</li>
+          <li>Total</li>
+        </ul>
+        <ul :key="itme.id" class="data-list" v-for="itme in list">
+          <li @click="showRound(itme)">
+            <div class="round" v-if="itme.show"></div>
+          </li>
+          <li>{{itme.date}}</li>
+          <li>{{itme.no}}</li>
+          <li>{{itme.data}}</li>
+          <li>{{itme.total}}</li>
+        </ul>
+      </div>
+      <!-- 分页和搜索 -->
+      <div class="search">
+        <!-- 分页 -->
+        <div class="search-fy">
+          <span>
+            < </span> <a href="" class="choose">1</a>
+              <a href="">2</a>
+              <a href="">3</a>
 
-            },
-            methods: {
-                sort: function () {
-                    this.ishort = !this.ishort;
-                }
-            }
-        })
-    </script>
+
+              <span>
+                >
+              </span>
+        </div>
+        <input type="text" placeholder="Search" class="search-input">
+      </div>
+    </div>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        ishort: true,
+        list: [{
+          key: 1,
+          show: false,
+          date: '10/31/2017',
+          no: '000011',
+          data: 'Alpha Bravo Charlie',
+          total: '26.00'
+        }, {
+          key: 2,
+          show: false,
+          date: '10/31/2017',
+          no: '000011',
+          data: 'Alpha Bravo Charlie',
+          total: '26.00'
+        }, {
+          key: 3,
+          show: false,
+          date: '10/31/2017',
+          no: '000011',
+          data: 'Alpha Bravo Charlie',
+          total: '26.00'
+        }, {
+          key: 4,
+          show: false,
+          date: '10/31/2017',
+          no: '000011',
+          data: 'Alpha Bravo Charlie',
+          total: '26.00'
+        }, {
+          key: 5,
+          show: false,
+          date: '10/31/2017',
+          no: '000011',
+          data: 'Alpha Bravo Charlie',
+          total: '26.00'
+        }, {
+          key: 6,
+          show: false,
+          date: '10/31/2017',
+          no: '000011',
+          data: 'Alpha Bravo Charlie',
+          total: '26.00'
+        }],
+        pagenum: 6,
+        nowpage: 1
+
+      },
+      methods: {
+        sort: function () {
+          this.ishort = !this.ishort;
+        },
+        showRound: function (el) {
+          console.log(el);
+          el.show = !el.show
+        }
+      }
+    })
+  </script>
 
 
 
