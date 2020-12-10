@@ -15,7 +15,7 @@
             <div class="list">
                 <ul class="top">
                     <li></li>
-                    <li @click="sort()">Data <span v-if="ishort">↑</span><span v-if="!ishort">↓</span></li>
+                    <li @click="sort('date')">Date <span v-if="ishort">&and;</span><span v-if="!ishort">&or;</span></li>
                     <li>#</li>
                     <li>Description</li>
                     <li>Total</li>
@@ -52,6 +52,9 @@
             el: '#app',
             data: {
                 //向上排序还是向下排序
+                // ishort 是true的时候是向上排序
+                // ishort 是 false 的时候是向下排序
+
                 ishort: true,
                 //排序状态
                 shortType: null,
@@ -59,42 +62,42 @@
                 list: [{
                     key: 1,
                     show: false,
-                    date: '10/31/2017',
+                    date: '10/1/2017',
                     no: '000011',
                     data: 'Alpha Bravo Charlie',
                     total: '26.00'
                 }, {
                     key: 2,
                     show: false,
-                    date: '10/31/2017',
+                    date: '10/3/2017',
                     no: '000011',
                     data: 'Alpha Bravo Charlie',
                     total: '26.00'
                 }, {
                     key: 3,
                     show: false,
-                    date: '10/31/2017',
+                    date: '11/31/2017',
                     no: '000011',
                     data: 'Alpha Bravo Charlie',
                     total: '26.00'
                 }, {
                     key: 4,
                     show: false,
-                    date: '10/31/2017',
+                    date: '5/31/2017',
                     no: '000011',
                     data: 'Alpha Bravo Charlie',
                     total: '26.00'
                 }, {
                     key: 5,
                     show: false,
-                    date: '10/31/2017',
+                    date: '10/31/2019',
                     no: '000011',
                     data: 'Alpha Bravo Charlie',
                     total: '26.00'
                 }, {
                     key: 6,
                     show: false,
-                    date: '10/31/2017',
+                    date: '10/31/2020',
                     no: '000011',
                     data: 'Alpha Bravo Charlie',
                     total: '26.00'
@@ -136,11 +139,37 @@
                 }],
 
                 //当前页码
-                nowpage: 2
+                nowpage: 1
 
             },
             methods: {
-                sort: function () {
+                cmp: function (type) {
+                    let that = this;
+                    return function (a, b) {
+                        // console.log(type)
+                        let x = a[type].split('/');
+                        let y = b[type].split('/');
+                        //将时间转换为标准时间格式
+                        let date1 = new Date(x[2] + ',' + x[0] + ',' + x[1]);
+                        let date2 = new Date(y[2] + ',' + y[0] + ',' + y[1]);
+                        //！that.ishort是代表转换后的  当你现在是升序 你点一下是变成降序
+                        // 如果要得到自己想要的结果， 不管是升序还是降序， 就需要提供比较函数了。 该函数比较两个值的大小， 然后返回一个用于说明这两个值的相对顺序的数字。
+                        // 比较函数应该具有两个参数 a 和 b， 其返回值如下：
+                        // 若 a 小于 b， 即 a - b 小于零， 则返回一个小于零的值， 数组将按照升序排列。
+                        // 若 a 等于 b， 则返回 0。
+                        // 若 a 大于 b, 即 a - b 大于零， 则返回一个大于零的值， 数组将按照降序排列
+                        if (!that.ishort) {
+                            return date1 - date2;
+                            //date1>date2 升序
+                        } else {
+                            return date2 - date1;
+                            // date2>date1 降序
+                        }
+                    }
+                },
+                sort: function (type) {
+                    this.showpage.sort(this.cmp(type))
+                    // console.log(type);
                     this.ishort = !this.ishort;
                 },
                 //小圆点的显示与隐藏
@@ -170,7 +199,7 @@
             computed: {
                 //计算应该分多少页
                 pageSize: function () {
-                    console.log(this.list.length / 6);
+                    // console.log(this.list.length / 6);
                     return Math.ceil(this.list.length / 6) || 1;
                     // math.ceil是求整数
                 },
