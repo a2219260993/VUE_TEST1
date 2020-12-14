@@ -30,3 +30,13 @@ var date3 = new Date(y[2] + ',' + y[0] + ',' + y[1]);
 console.log(date1);
 console.log(date3);
 console.log(date1 - date3);
+slist = this.list.filter(function (x) {
+    if (x.no.search(that.searchdate) != -1 || x.data
+        .search(that
+            .searchdate) != -1) {
+        return true;
+    } else {
+        return false;
+    }
+})
+return slist;

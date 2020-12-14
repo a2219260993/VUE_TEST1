@@ -16,3 +16,37 @@ cmp 函数：
 若 a 等于 b，则返回 0。
 
 若 a 大于 b, 即 a - b 大于零，则返回一个大于零的值，数组将按照降序排列
+
+---
+
+搜索功能：
+本来是利用 showlist 计算属性 从 list 中计算出该页面显示的数据
+但是添加搜索功能则利用 showlist 计算属性从 searchlist 中计算出该页面显示的数据
+而 searchlist 也是一个计算属性 从 list 中计算出需要显示的数据
+
+改进后使用filter过滤器
+
+```
+slist = this.list.filter(function (x) {
+    if (x.no.search(that.searchdate) != -1 || x.data
+        .search(that
+            .searchdate) != -1) {
+        return true;
+    } else {
+        return false;
+    }
+})
+return slist;
+
+
+```
+
+总结一下   showlist是该页面显示的数据 根据nowpage和searchlist计算出   
+
+searchlist是 应该显示的总数据  应该显示  应该显示     由list计算出
+
+list是总数据   固定不变的 
+
+后续添加增加功能也是应该添加再list里面
+
+ list更改= searchlist更改= showlist更改

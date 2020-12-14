@@ -43,7 +43,7 @@
                         &gt;
                     </a>
                 </div>
-                <input type="text" placeholder="Search" class="search-input">
+                <input type="text" placeholder="Search" class="search-input" v-model='searchdate'>
             </div>
         </div>
     </div>
@@ -63,14 +63,14 @@
                     key: 1,
                     show: false,
                     date: '10/1/2017',
-                    no: '000011',
+                    no: '000001',
                     data: 'Alpha Bravo Charlie',
                     total: '26.00'
                 }, {
                     key: 2,
                     show: false,
                     date: '10/3/2017',
-                    no: '000011',
+                    no: '000002',
                     data: 'Alpha Bravo Charlie',
                     total: '26.00'
                 }, {
@@ -78,68 +78,70 @@
                     show: false,
                     date: '11/31/2017',
                     no: '000011',
-                    data: 'Alpha Bravo Charlie',
+                    data: 'Alpha 1231 Charlie',
                     total: '26.00'
                 }, {
                     key: 4,
                     show: false,
                     date: '5/31/2017',
                     no: '000011',
-                    data: 'Alpha Bravo Charlie',
+                    data: 'Alpha Bravo 61asd',
                     total: '26.00'
                 }, {
                     key: 5,
                     show: false,
                     date: '10/31/2019',
                     no: '000011',
-                    data: 'Alpha Bravo Charlie',
+                    data: '168s Bravo Charlie',
                     total: '26.00'
                 }, {
                     key: 6,
                     show: false,
                     date: '10/31/2020',
-                    no: '000011',
-                    data: 'Alpha Bravo Charlie',
+                    no: '006433',
+                    data: 'Alpha Bravo gasd',
                     total: '26.00'
                 }, {
                     key: 6,
                     show: false,
                     date: '10/31/2017',
                     no: '000011',
-                    data: 'Alpha Bravo Charlie',
+                    data: 'Alpha Bravo sasd',
                     total: '26.00'
                 }, {
                     key: 6,
                     show: false,
                     date: '10/31/2017',
                     no: '000011',
-                    data: 'Alpha Bravo Charlie',
+                    data: 'asd Bravo Charlie',
+                    total: '26.00'
+                }, {
+                    key: 6,
+                    show: false,
+                    date: '10/31/2017',
+                    no: '554066',
+                    data: 'Alpha ggg Charlie',
+                    total: '26.00'
+                }, {
+                    key: 6,
+                    show: false,
+                    date: '10/31/2017',
+                    no: '13597',
+                    data: 'Alpha dasd Charlie',
                     total: '26.00'
                 }, {
                     key: 6,
                     show: false,
                     date: '10/31/2017',
                     no: '000011',
-                    data: 'Alpha Bravo Charlie',
-                    total: '26.00'
-                }, {
-                    key: 6,
-                    show: false,
-                    date: '10/31/2017',
-                    no: '000011',
-                    data: 'Alpha Bravo Charlie',
-                    total: '26.00'
-                }, {
-                    key: 6,
-                    show: false,
-                    date: '10/31/2017',
-                    no: '000011',
-                    data: 'Alpha Bravo Charlie',
+                    data: 'liuzhouyu chao ji bang',
                     total: '26.00'
                 }],
 
                 //当前页码
-                nowpage: 1
+                nowpage: 1,
+                // searchlist: [],
+                searchdate: ''
 
             },
             methods: {
@@ -200,13 +202,40 @@
                 //计算应该分多少页
                 pageSize: function () {
                     // console.log(this.list.length / 6);
-                    return Math.ceil(this.list.length / 6) || 1;
+                    return Math.ceil(this.searchlist.length / 6) || 1;
                     // math.ceil是求整数
+                },
+                // 用来存放搜索的数据
+                searchlist: function () {
+                    var that = this;
+                    var slist = [];
+                    // 基本方法选择：
+                    // for (var i = 0; i < this.list.length; i++) {
+                    //     //for循环数据中的每一项（根据name值）
+                    //     if (this.list[i].no.search(this.searchdate) != -1 || this.list[i].data.search(this
+                    //             .searchdate) != -1) {
+                    //         //判断输入框中的值是否可以匹配到数据，如果匹配成功
+                    //         slist.push(this.list[i]);
+                    //         //向空数组中添加数据
+                    //     }
+                    // }
+                    // 利用filter（）
+                    slist = this.list.filter(function (x) {
+                        if (x.no.search(that.searchdate) != -1 || x.data
+                            .search(that
+                                .searchdate) != -1) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    })
+                    return slist;
                 },
                 //计算某一页存放的数据
                 showpage: function () {
-                    return this.list.slice((this.nowpage - 1) * 6, this.nowpage * 6)
+                    return this.searchlist.slice((this.nowpage - 1) * 6, this.nowpage * 6)
                 }
+
             }
         })
     </script>
