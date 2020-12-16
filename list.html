@@ -19,6 +19,7 @@
             <label for="total">总计：</label>
             <input type="text" id="total" v-model='total'>
             <button @click.prevent='sub'>提交</button>
+            <button @click.prevent='delall'>删除所有选中项</button>
         </div>
         <div class="bigBox">
             <div class="list">
@@ -272,6 +273,15 @@
                 nowTime: function () {
                     var time = new Date();
                     return `${time.getMonth() + 1}/${time.getDate()}/${time.getFullYear()}`
+                },
+                delall: function () {
+                    this.list = this.list.filter(itme => {
+                        if (itme.show === true) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    })
                 }
             },
             computed: {
