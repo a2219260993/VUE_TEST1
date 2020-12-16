@@ -11,6 +11,15 @@
 
 <body>
     <div id="app">
+        <div class="add">
+            <label for="id">编号：</label>
+            <input type="text" id="id" v-model='no' :disabled='flag'>
+            <label for="data">数据：</label>
+            <input type="text" id="name" v-model='data'>
+            <label for="total">总计：</label>
+            <input type="text" id="total" v-model='total'>
+            <button @click.prevent='sub'>提交</button>
+        </div>
         <div class="bigBox">
             <div class="list">
                 <ul class="top">
@@ -19,8 +28,9 @@
                     <li>#</li>
                     <li>Description</li>
                     <li>Total</li>
+                    <li></li>
                 </ul>
-                <ul :key="itme.id" class="data-list" v-for="itme in showpage">
+                <ul :key="itme.key" class="data-list" v-for="itme in showpage">
                     <li @click="showRound(itme)">
                         <div class="round" v-if="itme.show"></div>
                     </li>
@@ -28,6 +38,7 @@
                     <li>{{itme.no}}</li>
                     <li>{{itme.data}}</li>
                     <li>{{itme.total}}</li>
+                    <li><button @click='change(itme)'>修改</button><button @click="del(itme.key)">删除</button></li>
                 </ul>
             </div>
             <!-- 分页和搜索 -->
@@ -54,95 +65,109 @@
                 //向上排序还是向下排序
                 // ishort 是true的时候是向上排序
                 // ishort 是 false 的时候是向下排序
-
                 ishort: true,
                 //排序状态
                 shortType: null,
                 //总数据
                 list: [{
-                    key: 1,
-                    show: false,
-                    date: '10/1/2017',
-                    no: '000001',
-                    data: 'Alpha Bravo Charlie',
-                    total: '26.00'
-                }, {
-                    key: 2,
-                    show: false,
-                    date: '10/3/2017',
-                    no: '000002',
-                    data: 'Alpha Bravo Charlie',
-                    total: '26.00'
-                }, {
-                    key: 3,
-                    show: false,
-                    date: '11/31/2017',
-                    no: '000011',
-                    data: 'Alpha 1231 Charlie',
-                    total: '26.00'
-                }, {
-                    key: 4,
-                    show: false,
-                    date: '5/31/2017',
-                    no: '000011',
-                    data: 'Alpha Bravo 61asd',
-                    total: '26.00'
-                }, {
-                    key: 5,
-                    show: false,
-                    date: '10/31/2019',
-                    no: '000011',
-                    data: '168s Bravo Charlie',
-                    total: '26.00'
-                }, {
-                    key: 6,
-                    show: false,
-                    date: '10/31/2020',
-                    no: '006433',
-                    data: 'Alpha Bravo gasd',
-                    total: '26.00'
-                }, {
-                    key: 6,
-                    show: false,
-                    date: '10/31/2017',
-                    no: '000011',
-                    data: 'Alpha Bravo sasd',
-                    total: '26.00'
-                }, {
-                    key: 6,
-                    show: false,
-                    date: '10/31/2017',
-                    no: '000011',
-                    data: 'asd Bravo Charlie',
-                    total: '26.00'
-                }, {
-                    key: 6,
-                    show: false,
-                    date: '10/31/2017',
-                    no: '554066',
-                    data: 'Alpha ggg Charlie',
-                    total: '26.00'
-                }, {
-                    key: 6,
-                    show: false,
-                    date: '10/31/2017',
-                    no: '13597',
-                    data: 'Alpha dasd Charlie',
-                    total: '26.00'
-                }, {
-                    key: 6,
-                    show: false,
-                    date: '10/31/2017',
-                    no: '000011',
-                    data: 'liuzhouyu chao ji bang',
-                    total: '26.00'
-                }],
-
+                        "key": 1,
+                        "show": false,
+                        "date": "11/16/2003",
+                        "no": "863218",
+                        "data": "Jennifer Young",
+                        "total": 5.43
+                    },
+                    {
+                        "key": 2,
+                        "show": true,
+                        "date": "02/15/1951",
+                        "no": "615814",
+                        "data": "Timothy Robinson",
+                        "total": 41.56
+                    },
+                    {
+                        "key": 3,
+                        "show": true,
+                        "date": "09/10/1991",
+                        "no": "882971",
+                        "data": "Donald Lee",
+                        "total": 38.34
+                    },
+                    {
+                        "key": 4,
+                        "show": false,
+                        "date": "11/12/2012",
+                        "no": "275827",
+                        "data": "Kimberly Williams",
+                        "total": 47.58
+                    },
+                    {
+                        "key": 5,
+                        "show": true,
+                        "date": "09/11/1975",
+                        "no": "563945",
+                        "data": "Ruth Rodriguez",
+                        "total": 19.32
+                    },
+                    {
+                        "key": 6,
+                        "show": true,
+                        "date": "12/02/2014",
+                        "no": "809617",
+                        "data": "Ruth Williams",
+                        "total": 7.75
+                    },
+                    {
+                        "key": 7,
+                        "show": true,
+                        "date": "09/14/2017",
+                        "no": "693148",
+                        "data": "Laura Martinez",
+                        "total": 17.23
+                    },
+                    {
+                        "key": 8,
+                        "show": false,
+                        "date": "10/01/1985",
+                        "no": "387751",
+                        "data": "Deborah Harris",
+                        "total": 87.63
+                    },
+                    {
+                        "key": 9,
+                        "show": false,
+                        "date": "02/03/1972",
+                        "no": "036481",
+                        "data": "Edward Young",
+                        "total": 82.74
+                    },
+                    {
+                        "key": 10,
+                        "show": false,
+                        "date": "07/13/2005",
+                        "no": "970476",
+                        "data": "Frank Williams",
+                        "total": 36.13
+                    },
+                    {
+                        "key": 11,
+                        "show": false,
+                        "date": "06/09/1972",
+                        "no": "508266",
+                        "data": "Susan Jones",
+                        "total": 73.79
+                    }
+                ],
+                //当前的key
+                key: 8,
                 //当前页码
                 nowpage: 1,
                 // searchlist: [],
-                searchdate: ''
-
+                searchdate: '',
+                no: '',
+                data: '',
+                total: '',
+                flag: false
             },
             methods: {
                 cmp: function (type) {
@@ -196,6 +221,57 @@
                     } else {
                         this.nowpage++;
                     }
+                },
+                del: function (el) {
+                    // console.log(el);
+                    let that = this;
+                    this.list = this.list.filter(itm => {
+                        // console.log(el);
+                        // console.log(itm.key);
+                        // itm.key === el ? false : true
+                        if (itm.key === el) {
+                            return false;
+                        } else {
+                            return true
+                        }
+                    })
+                },
+                sub: function () {
+                    if (this.flag) {
+                        this.list.some(itme => {
+                            if (itme.no == this.no) {
+                                itme.data = this.data;
+                                itme.date = this.nowTime();
+                                itme.total = this.total;
+                                return true;
+                            }
+                        });
+                        this.flag = false;
+                    } else if (this.no == '' || this.data == '' || this.total == '') {
+                        alert("请正确输入！")
+                    } else {
+                        var obj = {};
+                        this.key = this.key + 1;
+                        obj.key = this.key;
+                        obj.show = false;
+                        obj.date = this.nowTime();
+                        obj.no = this.no;
+                        obj.data = this.data;
+                        obj.total = this.total;
+                        this.list.push(obj);
+                    }
+                    this.no = '';
+                    this.data = '';
+                    this.total = '';
+                },
+                change: function (itme) {
+                    this.no = itme.no;
+                    this.data = itme.data;
+                    this.flag = true;
+                },
+                nowTime: function () {
+                    var time = new Date();
+                    return `${time.getMonth() + 1}/${time.getDate()}/${time.getFullYear()}`
                 }
             },
             computed: {
